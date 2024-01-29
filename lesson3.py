@@ -51,8 +51,8 @@
 # print(path)
 
 
-name = "Alex"
-age = 34
+# name = "Alex"
+# age = 34
 
 # text = "Hello " + name + " " + str(age)
 # print(text)
@@ -175,6 +175,22 @@ age = 34
 
 # text = "Hello world"
 # print(text[2], text[~2])
-print(bin(13))
-print(bin(13 >> 2))
-print(bin(13 << 2))
+# print(bin(13))
+# print(bin(13 >> 2))
+# print(bin(13 << 2))
+
+# print(hash("Hello"))
+# print(hash("Hello"))
+# a = "Helloworld"
+# b = "Hello"
+# c = "world"
+# d = b + c
+# print(a)
+# print(d)
+# print(a is d)
+# a = 4
+# b = round((2 ** 4) ** 0.5)
+# print(a is b)
+
+# from sys import getrefcount
+# print(getrefcount(-6))
