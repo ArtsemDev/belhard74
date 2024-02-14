@@ -1,4 +1,6 @@
 """Модуль содержащий код 7 занятия"""
+from typing import Any
+
 
 # users = {
 #     1: {"name": "Name-1", "email": "email1"},
@@ -186,3 +188,29 @@ def multiply(a: int, b: int) -> int:
 
 
 # print(multiply.__doc__)
+class A:
+
+    def __init__(self, b: bool) -> None:
+        self.b = b
+        self.c = True
+
+
+numbers = [10, 20, 30, 40, 50, 60, 70, 80, 90]
+# n = -2
+# print(numbers[-n:])
+# print(numbers[-n:] + numbers[:-n])
+
+
+def rotate(objs: list[Any], n: int) -> list[Any]:
+    """Rotate list
+
+    :param objs: list for rotate
+    :param n: step
+    :return: rotated list
+    """
+    for _ in range(abs(n)):
+        if n > 0:
+            objs.insert(0, objs.pop(-1))
+        else:
+            objs.append(objs.pop(0))
+    return objs
