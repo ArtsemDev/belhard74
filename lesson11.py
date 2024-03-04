@@ -81,7 +81,7 @@ from sqlalchemy import (
     ForeignKey,
     CheckConstraint,
     TEXT,
-    create_engine
+    create_engine, inspect
 )
 from sqlalchemy.orm import DeclarativeBase, declarative_base, relationship, sessionmaker
 
@@ -113,12 +113,12 @@ class Topic(Base):
         CheckConstraint("length(body) >= 2"),
     )
 
-    id = Column(INT, primary_key=True)
-    title = Column(VARCHAR(length=128), nullable=False)
-    body = Column(TEXT, nullable=False)
-    date_created = Column(TIMESTAMP, nullable=False, default=datetime.now, server_default="now()")
-    is_published = Column(BOOLEAN, nullable=False, default=False, server_default="false")
-    tag_id = Column(
+    id: Column = Column(INT, primary_key=True)
+    title: Column = Column(VARCHAR(length=128), nullable=False)
+    body: Column = Column(TEXT, nullable=False)
+    date_created: Column = Column(TIMESTAMP, nullable=False, default=datetime.now, server_default="now()")
+    is_published: Column = Column(BOOLEAN, nullable=False, default=False, server_default="false")
+    tag_id: Column = Column(
         INT,
         ForeignKey(column=Tag.id, ondelete="RESTRICT", onupdate="CASCADE"),
         nullable=False
@@ -127,23 +127,65 @@ class Topic(Base):
     tag = relationship(argument=Tag, back_populates="topics")
 
 
+class ChatRelation(Base):
+    __tablename__ = "chat_relations"
+
+    id = Column(INT, primary_key=True)
+    department_id = Column(INT, ForeignKey(column="departments.id"), nullable=True)
+    sub_department_id = Column(INT, ForeignKey(column="sub_departments.id"), nullable=True)
+    chat_id = Column(INT, ForeignKey(column="chats.id"), nullable=False)
+
+
+class Department(Base):
+    __tablename__ = "departments"
+
+    id = Column(INT, primary_key=True)
+    name = Column(VARCHAR(length=32), nullable=False, unique=True)
+
+    users = relationship(argument="User", back_populates="department")
+    chats = relationship(argument="Chat", secondary=inspect(ChatRelation).local_table, back_populates="departments")
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class SubDepartment(Base):
+    __tablename__ = "sub_departments"
+
+    id = Column(INT, primary_key=True)
+    name = Column(VARCHAR(length=32), nullable=False, unique=True)
+
+    users = relationship(argument="User", back_populates="sub_department")
+    chats = relationship(argument="Chat", secondary=inspect(ChatRelation).local_table, back_populates="sub_departments")
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class Chat(Base):
+    __tablename__ = "chats"
+
+    id = Column(INT, primary_key=True)
+    name = Column(VARCHAR(length=32), nullable=False, unique=True)
+
+    departments = relationship(argument=Department, secondary=inspect(ChatRelation).local_table, back_populates="chats")
+    sub_departments = relationship(argument=SubDepartment, secondary=inspect(ChatRelation).local_table, back_populates="chats")
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(INT, primary_key=True)
+    department_id = Column(INT, ForeignKey(column=Department.id), nullable=True)
+    sub_department_id = Column(INT, ForeignKey(column=SubDepartment.id), nullable=True)
+
+    department = relationship(argument=Department, back_populates="users")
+    sub_department = relationship(argument=SubDepartment, back_populates="users")
+
+
 engine = create_engine(url="postgresql://admin:admin@217.76.60.77:6666/admin")
 session_maker = sessionmaker(bind=engine)
 
-
-with session_maker() as session:
-    tag = session.get(entity=Tag, ident=2)
-    print(tag.topics)
-    # tag1 = Tag(name="Sport")
-    # tag2 = Tag(name="Finance")
-    # session.add_all(instances=[tag1, tag2])
-    # session.commit()
-    # session.refresh(instance=tag1)
-    # session.refresh(instance=tag2)
-    # print(tag1.id, tag1.name)
-    # print(tag2.id, tag2.name)
-    # tag = session.get(entity=Tag, ident=1)
-    # tag.name = "Auto"
-    # session.commit()
-    # session.delete(instance=tag)
-    # session.commit()
