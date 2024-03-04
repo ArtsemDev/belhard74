@@ -124,7 +124,7 @@ class Topic(Base):
         nullable=False
     )
 
-    tag = relationship(argument=Tag, back_populates="topics")
+    tag = relationship(argument=Tag, foreign_keys=[tag_id], back_populates="topics")
 
 
 class ChatRelation(Base):
@@ -177,6 +177,9 @@ class Chat(Base):
 
 class User(Base):
     __tablename__ = "users"
+    # __table_args__ = (
+    #     CheckConstraint("start_date < end_date"),
+    # )
 
     id = Column(INT, primary_key=True)
     department_id = Column(INT, ForeignKey(column=Department.id), nullable=True)

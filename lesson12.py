@@ -173,3 +173,12 @@
 # print(redis.get("session"))
 # sleep(5)
 # print(redis.get("session"))
+from enum import IntEnum
+
+from sqlalchemy import Column, Enum
+
+
+class Status(IntEnum):
+    TO_DO = 0
+    IN_PROGRESS = 1
+    DONE = 2
