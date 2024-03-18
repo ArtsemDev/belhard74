@@ -50,6 +50,7 @@
 #
 #
 
+
 class A:
     i: int = 0
 
@@ -148,10 +149,7 @@ class Manager(User):
 # print(vasya.email)
 
 
-user = {
-    "name": "Vasya",
-    "email": "vasya@gmail.com"
-}
+user = {"name": "Vasya", "email": "vasya@gmail.com"}
 
 
 # class User:
@@ -185,17 +183,14 @@ from abc import ABC, abstractmethod
 class AbstractView(ABC):
 
     @abstractmethod
-    def get(self, request):
-        ...
+    def get(self, request): ...
 
     @abstractmethod
-    def post(self, request):
-        ...
+    def post(self, request): ...
 
     @classmethod
     @abstractmethod
-    def dispatch(cls, request):
-        ...
+    def dispatch(cls, request): ...
 
 
 class ListView(AbstractView):
@@ -222,14 +217,12 @@ class ListView(AbstractView):
 class AbstractPhone(ABC):
 
     @abstractmethod
-    def call(self):
-        ...
+    def call(self): ...
 
 
 class SMSMixin:
 
-    def sms(self):
-        ...
+    def sms(self): ...
 
 
 class MobilePhone(SMSMixin, AbstractPhone):
@@ -248,8 +241,7 @@ class StaticPhone(AbstractPhone):
 class AbstractMusic(ABC):
 
     @abstractmethod
-    def get_music_by_name(self, name):
-        ...
+    def get_music_by_name(self, name): ...
 
 
 class YandexMusic(AbstractMusic):
@@ -277,11 +269,7 @@ class Engine:
 
 class Car:
 
-    def __init__(
-            self,
-            manufactory: str,
-            engine: Engine
-    ) -> None:
+    def __init__(self, manufactory: str, engine: Engine) -> None:
         self.manufactory = manufactory
         self.engine = engine
 

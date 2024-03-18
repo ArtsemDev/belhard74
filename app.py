@@ -3,7 +3,7 @@ def foo():
 
 
 class Singleton(object):
-    __slots__ = ("__instance", )
+    __slots__ = ("__instance",)
 
 
 print()

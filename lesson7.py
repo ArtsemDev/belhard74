@@ -1,4 +1,5 @@
 """Модуль содержащий код 7 занятия"""
+
 from typing import Any
 
 
@@ -66,7 +67,9 @@ class User:
             return self.age < other.age
         elif isinstance(other, (int, float)):
             return self.age < other
-        raise TypeError(f"'<' not supported between instances of 'User' and '{type(other).__name__}'")
+        raise TypeError(
+            f"'<' not supported between instances of 'User' and '{type(other).__name__}'"
+        )
 
     def __ge__(self, other):
         return not self < other
@@ -76,7 +79,9 @@ class User:
             return self.age + other.age
         elif isinstance(other, (int, float)):
             return self.age + other
-        raise TypeError(f"'+' not supported between instances of 'User' and '{type(other).__name__}'")
+        raise TypeError(
+            f"'+' not supported between instances of 'User' and '{type(other).__name__}'"
+        )
 
     def __radd__(self, other):
         return self + other
@@ -88,7 +93,9 @@ class User:
         elif isinstance(other, (int, float)):
             self.age += other
             return self
-        raise TypeError(f"'+=' not supported between instances of 'User' and '{type(other).__name__}'")
+        raise TypeError(
+            f"'+=' not supported between instances of 'User' and '{type(other).__name__}'"
+        )
 
     def set_name(self, new_name: str):
         self.name = new_name
@@ -117,14 +124,13 @@ class User:
 
 
 class Product:
-    __slots__ = ("title", "description", "price", )
+    __slots__ = (
+        "title",
+        "description",
+        "price",
+    )
 
-    def __init__(
-            self,
-            title: str,
-            description: str,
-            price: int | float
-    ) -> None:
+    def __init__(self, title: str, description: str, price: int | float) -> None:
         self.title = title
         self.description = description
         self.price = price
@@ -172,6 +178,7 @@ product = Product(title="Laptop", description="Powerful!", price=1500)
 
 
 # print(print.__doc__)
+
 
 def multiply(a: int, b: int) -> int:
     """Произведение 2 целых чисел

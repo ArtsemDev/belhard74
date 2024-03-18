@@ -145,15 +145,14 @@ class AsyncIterator:
     async def __aenter__(self):
         return self
 
-    async def __aexit__(self, exc_type, exc_val, exc_tb):
-        ...
+    async def __aexit__(self, exc_type, exc_val, exc_tb): ...
 
 
 # async def main():
 #     async with AsyncIterator() as ai:
 #         ...
-    # async for i in AsyncIterator():
-    #     print(i)
+# async for i in AsyncIterator():
+#     print(i)
 
 
 def wrapper(func):

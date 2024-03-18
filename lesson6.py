@@ -259,6 +259,7 @@ def logging(filename):
             return result
 
         return wrapper
+
     return _logging
 
 

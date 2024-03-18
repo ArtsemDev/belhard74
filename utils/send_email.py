@@ -7,5 +7,5 @@ def send_email(subject: str, message: str, email: str, recipients: list[str]) ->
     print("SEND")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     send_email("", "", "", [])

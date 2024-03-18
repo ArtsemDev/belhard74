@@ -174,15 +174,16 @@
 #     w.writeheader()
 #     w.writerows(data)
 from datetime import datetime
+from typing import *
+
+from annotated_types import Annotated, Predicate
+from pydantic import BaseModel, EmailStr, Field, validate_call
+from pydantic.types import Decimal, PositiveInt
+
 # from ujson import load
 #
 # with open("./user_register.json", "rt", encoding="utf-8") as file:
 #     data = load(file)
-
-from typing import *
-from annotated_types import Annotated, Predicate
-from pydantic import BaseModel, EmailStr, Field, PlainValidator, validate_call
-from pydantic.types import Decimal, PositiveInt
 
 AlphaStr = Annotated[str, Predicate(func=str.isalpha)]
 
@@ -206,6 +207,7 @@ class UserRegisterForm(BaseModel):
 # from datetime import datetime
 # print(datetime.now().isoformat())
 
+
 class Product(BaseModel):
     id: PositiveInt
     price: Decimal = Field(max_digits=5, decimal_places=2)
@@ -221,16 +223,8 @@ class Category(BaseModel):
 data = {
     "id": 1,
     "name": "Coffee",
-    "products": [
-        {
-            "id": 1,
-            "price": 12341234.234
-        }
-    ],
-    "parent": {
-        "id": -5,
-        "name": "Pancake"
-    }
+    "products": [{"id": 1, "price": 12341234.234}],
+    "parent": {"id": -5, "name": "Pancake"},
 }
 # cat = Category.model_validate(data)
 

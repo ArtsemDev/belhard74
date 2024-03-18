@@ -7,5 +7,5 @@ from pydantic import BaseModel, Field
 from utils import send_email
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     ...
